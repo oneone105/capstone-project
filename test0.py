@@ -1,0 +1,1 @@
+pandas.read_html(io, *, match='.+', flavor=None, header=None, index_col=None, skiprows=None, attrs=None, parse_dates=False, thousands=',', encoding=None, decimal='.', converters=None, na_values=None, keep_default_na=True, displayed_only=True, extract_links=None)
