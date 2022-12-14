@@ -18,10 +18,10 @@ from pymongo import MongoClient
 
 # Variables that contains the credentials to access Twitter API
 # credentials
-ACCESS_TOKEN = 'XXXXX'
-ACCESS_SECRET = 'XXXXX'
-CONSUMER_KEY = 'XXXX'
-CONSUMER_SECRET = 'XXXX'
+ACCESS_TOKEN = 'ACCESS_TOKEN'
+ACCESS_SECRET = 'ACCESS_SECRET'
+CONSUMER_KEY = 'CONSUMER_KEY'
+CONSUMER_SECRET = 'CONSUMER_SECRET'
 
 
 # Setup access to API
