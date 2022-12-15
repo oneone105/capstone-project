@@ -14,5 +14,6 @@ bq_client = bigquery.Client()
 
 db = client.worldcup
 
+
 # load_dotenv()
 

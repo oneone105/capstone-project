@@ -16,7 +16,7 @@ query = '#ARG OR #HRV'
 paginator = tweepy.Paginator(tweepy_client.search_recent_tweets, 
                         query=query,
                         tweet_fields = ['author_id', 'created_at', 'source', 'lang', 'geo', 'public_metrics', 'entities', 'context_annotations', 'attachments'], 
-                        expansions = ['author_id'], 
+                        expansions = ['author_id'],
                         start_time = '2022-12-13T00:00:00.000Z',
                         end_time = '2022-12-14T00:00:00.000Z',
                         max_results = 100
@@ -38,9 +38,9 @@ for page in paginator:
             "source": tweet.source,
             "lang": tweet.lang,
             "geo": tweet.geo,
-            "retweet": tweet.public_metrics,
+            "public_metrics": tweet.public_metrics,
             "entites": tweet.entities,
             "text": tweet.text
         }
         
-        db.argVsHrv.insert_one(tweet_content)
+        db.semiFinalArgOrHrv.insert_one(tweet_content)
