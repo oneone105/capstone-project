@@ -1,19 +1,78 @@
 import os
 from pymongo import MongoClient
 from google.cloud import bigquery
-
-# from dotenv import load_dotenv
-# import pandas as pd
-# import json
+# import datetime
 
 client = MongoClient('localhost', 27017)
 
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= "./tecky-capstone-project-15a2a04d016f.json"
 bq_client = bigquery.Client()
 
 db = client.worldcup
 
+tweets_db = db.semiFinalArgHrv.find()
 
-# load_dotenv()
+arg_vs_hrv = bq_client.get_table('tecky-capstone-project.worldcup.arg_vs_hrv')
 
+for tweet in tweets_db:
+    print(tweet)
+    # # isRetweet
+    # isRetweet = False
+    # if ("RT" in tweet['text']):
+    #     isRetweet = True
+
+    # # hashtags
+    # hashtags = []
+    # if tweet['entities']['hashtags']:
+    #     for hashtag in tweet['entities']['hashtags']:
+    #         hashtags.append(hashtag['tag'])
+
+    # #annotations
+    # annotations = []
+    # annotations_person = []
+    # if tweet['entities']['annotations']:
+    #     for anno in tweet['entities']['annotations']:
+    #         if anno['type'] == "Person":
+    #             annotations_person.append(anno['normalized_text'])
+    #         else:
+    #             annotations.append(f'({anno["type"]}) {anno["normalized_text"]}')
+    
+    # url = "None"
+    # xurl = "None"
+    # durl = "None"
+    # media_key = "None"
+    
+    # if tweet['entities']['url']:
+    #     url = tweet['entities']['urls']['url']
+    #     xurl = tweet['entities']['urls']['expanded_url']
+    #     durl = tweet['entities']['urls']['display_url']
+    #     media_key = tweet['entities']['urls']['media_key']
+
+    # content = {
+    #     "tweet_id": tweet['tweet_id'],
+    #     "author_id": tweet['author']['id'],
+    #     "author_name": tweet['author']['name'],
+    #     "author_username": tweet['author']['username'],
+    #     "created_at": str(tweet['created_at']),
+    #     "source": tweet['source'],
+    #     "lang": tweet['lang'],
+    #     "geo": tweet['geo'],
+    #     "is_retweet": isRetweet,
+    #     "num_retweet": tweet['public_metrics']['retweet_count'],
+    #     "num_reply": tweet['public_metrics']['reply_count'],
+    #     "num_like": tweet['public_metrics']['like_count'],
+    #     "num_quote": tweet['public_metrics']['quote_count'],
+    #     "hashtags": ",".join(hashtags),
+    #     "annotations": ", ".join(annotations),
+    #     "annotations_person": ", ".join(annotations_person),
+    #     "url": url,
+    #     "expanded_url": xurl,
+    #     "display_url": durl,
+    #     "media_key": media_key,
+    #     "text": tweet['text']
+    # }
+    # print(content)
+    break
+    bq_client.insert_rows_json(arg_vs_hrv,[content])
+
+print("sucess")

@@ -39,8 +39,8 @@ for page in paginator:
             "lang": tweet.lang,
             "geo": tweet.geo,
             "public_metrics": tweet.public_metrics,
-            "entites": tweet.entities,
+            "entities": tweet.entities,
             "text": tweet.text
         }
         
-        db.semiFinalArgOrHrv.insert_one(tweet_content)
+        db.semiFinalArgHrv.insert_one(tweet_content)
