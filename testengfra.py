@@ -54,11 +54,11 @@ for page in paginator:
         
         db.engfra2.insert_one(tweet_content)
 
-eng_vs_fra = bq_client.get_table('tecky-capstone-project.worldcup.eng_fra')
+engfra2 = bq_client.get_table('tecky-capstone-project.worldcup.eng_fra')
 
 engfra2 = db.engfra2.find() # Use Pymongo access collection "jh"
 
 for row in engfra2:
     row['_id'] = str(row['_id']) # "_id" is default object and not json serializable, need to stringify it first
-    row['Date_Created'] = str(row['created_at']) # "Date_Created" is default datetime format, need to change it (should use datetime format instead)
-    bq_client.insert_rows_json(eng_fra,[row]) # insert to BQ
+    row['created_at'] = str(row['created_at']) # "Date_Created" is default datetime format, need to change it (should use datetime format instead)
+    bq_client.insert_rows_json(engfra2,[row]) # insert to BQ
