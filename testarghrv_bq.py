@@ -10,69 +10,74 @@ bq_client = bigquery.Client()
 
 db = client.worldcup
 
-tweets_db = db.semiFinalArgHrv.find()
+tweets_db = db.arghrvall.find()
 
 arg_vs_hrv = bq_client.get_table('tecky-capstone-project.worldcup.arg_vs_hrv')
 
 for tweet in tweets_db:
-    print(tweet)
-    # # isRetweet
-    # isRetweet = False
-    # if ("RT" in tweet['text']):
-    #     isRetweet = True
+    # print(tweet)
+    # break
+    try:
+        # isRetweet
+        isRetweet = False
+        if ("RT" in tweet['text']):
+            isRetweet = True
 
-    # # hashtags
-    # hashtags = []
-    # if tweet['entities']['hashtags']:
-    #     for hashtag in tweet['entities']['hashtags']:
-    #         hashtags.append(hashtag['tag'])
+        hashtags = []
+        annotations = []
+        annotations_person = []
+        url = "None"
+        xurl = "None"
+        durl = "None"
+        media_key = "None"
+        
+        # entities
+        if tweet.get('entities'):
 
-    # #annotations
-    # annotations = []
-    # annotations_person = []
-    # if tweet['entities']['annotations']:
-    #     for anno in tweet['entities']['annotations']:
-    #         if anno['type'] == "Person":
-    #             annotations_person.append(anno['normalized_text'])
-    #         else:
-    #             annotations.append(f'({anno["type"]}) {anno["normalized_text"]}')
+            # hashtags
+            if tweet.get('entities').get('hashtags'):
+                for hashtag in tweet['entities']['hashtags']:
+                    hashtags.append(hashtag['tag'])
+
+            #annotations
+            if tweet.get('entities').get('annotations'):
+                for anno in tweet['entities']['annotations']:
+                    if anno['type'] == "Person":
+                        annotations_person.append(anno['normalized_text'])
+                    else:
+                        annotations.append(f'({anno["type"]}) {anno["normalized_text"]}')
+        
+            if tweet.get('entities').get('urls'):
+                url = tweet['entities']['urls'][0]['url']
+                xurl = tweet['entities']['urls'][0]['expanded_url']
+                durl = tweet['entities']['urls'][0]['display_url']
+                media_key = tweet['entities']['urls'][0].get('media_key')
     
-    # url = "None"
-    # xurl = "None"
-    # durl = "None"
-    # media_key = "None"
-    
-    # if tweet['entities']['url']:
-    #     url = tweet['entities']['urls']['url']
-    #     xurl = tweet['entities']['urls']['expanded_url']
-    #     durl = tweet['entities']['urls']['display_url']
-    #     media_key = tweet['entities']['urls']['media_key']
-
-    # content = {
-    #     "tweet_id": tweet['tweet_id'],
-    #     "author_id": tweet['author']['id'],
-    #     "author_name": tweet['author']['name'],
-    #     "author_username": tweet['author']['username'],
-    #     "created_at": str(tweet['created_at']),
-    #     "source": tweet['source'],
-    #     "lang": tweet['lang'],
-    #     "geo": tweet['geo'],
-    #     "is_retweet": isRetweet,
-    #     "num_retweet": tweet['public_metrics']['retweet_count'],
-    #     "num_reply": tweet['public_metrics']['reply_count'],
-    #     "num_like": tweet['public_metrics']['like_count'],
-    #     "num_quote": tweet['public_metrics']['quote_count'],
-    #     "hashtags": ",".join(hashtags),
-    #     "annotations": ", ".join(annotations),
-    #     "annotations_person": ", ".join(annotations_person),
-    #     "url": url,
-    #     "expanded_url": xurl,
-    #     "display_url": durl,
-    #     "media_key": media_key,
-    #     "text": tweet['text']
-    # }
-    # print(content)
-    break
-    bq_client.insert_rows_json(arg_vs_hrv,[content])
+        content = {
+            "tweet_id": tweet['tweet_id'],
+            "author_id": tweet['author']['id'],
+            "author_name": tweet['author']['name'],
+            "author_username": tweet['author']['username'],
+            "created_at": str(tweet['created_at']),
+            "source": tweet['source'],
+            "lang": tweet['lang'],
+            "geo": tweet['geo'],
+            "is_retweet": isRetweet,
+            "num_retweet": tweet['public_metrics']['retweet_count'],
+            "num_reply": tweet['public_metrics']['reply_count'],
+            "num_like": tweet['public_metrics']['like_count'],
+            "num_quote": tweet['public_metrics']['quote_count'],
+            "hashtags": ",".join(hashtags),
+            "annotations": ", ".join(annotations),
+            "annotations_person": ", ".join(annotations_person),
+            "url": url,
+            "expanded_url": xurl,
+            "display_url": durl,
+            "media_key": media_key,
+            "text": tweet['text']
+        }
+        bq_client.insert_rows_json(arg_vs_hrv,[content])
+    except ValueError as e:
+        print(e)
 
 print("sucess")
