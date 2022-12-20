@@ -10,9 +10,10 @@ bq_client = bigquery.Client()
 
 db = client.worldcup
 
-tweets_db = db.arghrvall.find()
+# tweets_db = db.arghrvall.find()
+tweets_db = db.sfah.find()
 
-arg_vs_hrv = bq_client.get_table('tecky-capstone-project.worldcup.arg_vs_hrv')
+arg_vs_hrv = bq_client.get_table('tecky-capstone-project.worldcup.arg_vs_hrv_copy')
 
 for tweet in tweets_db:
     # print(tweet)
