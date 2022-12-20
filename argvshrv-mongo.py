@@ -11,14 +11,18 @@ load_dotenv()
 
 tweepy_client = tweepy.Client(os.getenv('BEARER_TOKEN'), wait_on_rate_limit=True)
 
-query = '#ARG OR #HRV'
+# query = '#ARG OR #HRV'
+# query = 'Argentina'
+# query = 'argentina'
+query = 'Croatia'
+# query = 'croatia'
 
 paginator = tweepy.Paginator(tweepy_client.search_recent_tweets, 
                         query=query,
                         tweet_fields = ['author_id', 'created_at', 'source', 'lang', 'geo', 'public_metrics', 'entities', 'context_annotations', 'attachments'], 
                         expansions = ['author_id'],
-                        start_time = '2022-12-13T00:00:00.000Z',
-                        end_time = '2022-12-14T00:00:00.000Z',
+                        start_time = '2022-12-13T15:00:00.000Z',
+                        end_time = '2022-12-13T23:00:00.000Z',
                         max_results = 100
                         )
 
@@ -43,4 +47,6 @@ for page in paginator:
             "text": tweet.text
         }
         
-        db.semiFinalArgHrv.insert_one(tweet_content)
+        db.sfah.insert_one(tweet_content)
+
+print("db import completed")
