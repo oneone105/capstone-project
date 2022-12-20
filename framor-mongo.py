@@ -18,15 +18,15 @@ load_dotenv()
 
 tweepy_client = tweepy.Client(os.getenv('BEARER_TOKEN'), wait_on_rate_limit=True)
 
-query = '#ENG OR #FRA OR #ENGFRA OR #FRAENG'
+query = '#FRA OR #MOR OR #FRAMOR OR #MORFRA'
 
 paginator = tweepy.Paginator(tweepy_client.search_recent_tweets, 
                         query=query,
                         tweet_fields = ['author_id', 'created_at', 'source', 'lang', 'geo', 'public_metrics', 'entities', 'context_annotations', 'attachments'], 
                         # media_fields = ['preview_image_url', 'media_key', 'type', 'url'],
                         expansions = ['author_id', 'attachments.media_keys'], 
-                        start_time = '2022-12-10T00:00:00.000Z',
-                        end_time = '2022-12-12T00:00:00.000Z',
+                        start_time = '2022-12-14T00:00:00.000Z',
+                        end_time = '2022-12-16T12:00:00.000Z',
                         max_results = 100
                         )
 
@@ -52,7 +52,7 @@ for page in paginator:
             "text": tweet.text
         }
         
-        db.engvsfra.insert_one(tweet_content)
+        db.fravsmor.insert_one(tweet_content)
 
 # engfra2 = bq_client.get_table('tecky-capstone-project.worldcup.eng_fra')
 
