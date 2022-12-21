@@ -10,9 +10,9 @@ bq_client = bigquery.Client()
 load_dotenv()
 db = client.worldcup
 # tweets_db = db.engvsfra.find()
-tweets_db = db.fravsmor.find()
+tweets_db = db.fravsmar.find()
 # eng_vs_fra = bq_client.get_table('tecky-capstone-project.worldcup.eng_vs_fra')
-fra_vs_mor = bq_client.get_table('tecky-capstone-project.worldcup.fra_vs_mor')
+sf-framar = bq_client.get_table('tecky-capstone-project.worldcup.sf-framar')
 
 for tweet in tweets_db:
     # print(tweet)
@@ -76,7 +76,7 @@ for tweet in tweets_db:
             "text": tweet['text']
         }
         # bq_client.insert_rows_json(eng_vs_fra,[content])
-        bq_client.insert_rows_json(fra_vs_mor,[content])
+        bq_client.insert_rows_json(sf-framar,[content])
 
     except ValueError as e:
         print(e)

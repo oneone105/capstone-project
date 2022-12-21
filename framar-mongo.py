@@ -11,8 +11,8 @@ load_dotenv()
 
 tweepy_client = tweepy.Client(os.getenv('BEARER_TOKEN'), wait_on_rate_limit=True)
 
-query = '#FRA OR #MAR OR France OR Morocco OR #FRAMAR OR #MARFRA'
-
+# query = '#FRA OR #MAR OR France OR Morocco OR #FRAMAR OR #MARFRA'
+query = '#France OR #Morocco OR #MOR'
 
 
 
