@@ -9,9 +9,9 @@ bq_client = bigquery.Client()
 client = MongoClient('localhost', 27017)
 db = client.worldcup
 
-tweets_db = db.sfah.find()
+tweets_db = db.favf.find()
 
-arghrv_name = bq_client.get_table('tecky-capstone-project.worldcup.sf-arghrv_name')
+argfra_name = bq_client.get_table('tecky-capstone-project.worldcup.f-argfra_name')
 
 # -----------------------------------------------------------------------
 
@@ -36,10 +36,10 @@ for tweet in tweets_db:
                             "tweet_id": tweet['tweet_id'],
                             "name": name
                         }
-                        bq_client.insert_rows_json(arghrv_name,[content])
+                        bq_client.insert_rows_json(argfra_name,[content])
                     
 
     except ValueError as e:
         print(e)
 
-print("sf-arghrv_name upload success!")
+print("f-argfra_name upload success!")

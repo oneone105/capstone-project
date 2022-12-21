@@ -9,13 +9,14 @@ bq_client = bigquery.Client()
 
 db = client.worldcup
 
-tweets_db = db.sfah.find()
+tweets_db = db.favf.find(no_cursor_timeout=True)
 
-bq_content = bq_client.get_table('tecky-capstone-project.worldcup.sf-arghrv')
+bq_content = bq_client.get_table('tecky-capstone-project.worldcup.f-argfra3')
 
 for tweet in tweets_db:
 
     try:
+
         # isRetweet
         isRetweet = False
         if ("RT" in tweet['text']):
@@ -74,8 +75,11 @@ for tweet in tweets_db:
             "media_key": media_key,
             "text": tweet['text']
         }
+
         bq_client.insert_rows_json(bq_content,[content])
+
     except ValueError as e:
         print(e)
+        print(tweet['_id'])
 
-print("upload data to bq sucess - sf-arghrv")
+print("upload data to bq sucess - f-argfra")
