@@ -1,0 +1,27 @@
+/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/collection.py:1650: UserWarning: use an explicit session with no_cursor_timeout=True otherwise the cursor may still timeout after 30 minutes, for more info see https://mongodb.com/docs/v4.4/reference/method/cursor.noCursorTimeout/#session-idle-timeout-overrides-nocursortimeout
+  return Cursor(self, *args, **kwargs)
+Traceback (most recent call last):
+  File "/home/samuelhui/capstone-project/argfra-bq.py", line 16, in <module>
+    for tweet in tweets_db:
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/cursor.py", line 1248, in next
+    if len(self.__data) or self._refresh():
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/cursor.py", line 1188, in _refresh
+    self.__send_message(g)
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/cursor.py", line 1052, in __send_message
+    response = client._run_operation(
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1330, in _run_operation
+    return self._retryable_read(
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1448, in _retryable_read
+    return func(session, server, sock_info, read_pref)
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/mongo_client.py", line 1326, in _cmd
+    return server.run_operation(
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/server.py", line 134, in run_operation
+    _check_command_response(first, sock_info.max_wire_version)
+  File "/home/samuelhui/.local/lib/python3.10/site-packages/pymongo/helpers.py", line 179, in _check_command_response
+    raise CursorNotFound(errmsg, code, response, max_wire_version)
+pymongo.errors.CursorNotFound: cursor id 1396684425281388987 not found, full error: {'ok': 0.0, 'errmsg': 'cursor id 1396684425281388987 not found', 'code': 43, 'codeName': 'CursorNotFound'}
+upload data to bq sucess - sf-arghrv
