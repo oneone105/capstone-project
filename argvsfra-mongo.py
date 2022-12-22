@@ -5,6 +5,8 @@ from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
 
+# Should put this one inside Airflow Workflow
+
 db = client.worldcup
 
 load_dotenv()

@@ -13,9 +13,9 @@ tweets_db = db.sfah.find()
 
 bq_content = bq_client.get_table('tecky-capstone-project.worldcup.sf-arghrv')
 
-for tweet in tweets_db:
 
-    try:
+try:
+    for tweet in tweets_db:
         # isRetweet
         isRetweet = False
         if ("RT" in tweet['text']):
@@ -75,7 +75,8 @@ for tweet in tweets_db:
             "text": tweet['text']
         }
         bq_client.insert_rows_json(bq_content,[content])
-    except ValueError as e:
-        print(e)
+except ValueError as e:
+    print(e)
+    print(tweet['_id'])
 
-print("upload data to bq sucess - sf-arghrv")
+print("upload data to bq success - sf-arghrv")
