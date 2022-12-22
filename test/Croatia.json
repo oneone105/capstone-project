@@ -1,0 +1,14 @@
+[
+ {
+   "sentiment": "negative",
+   "text_word_count": 24.63
+ },
+ {
+   "sentiment": "neutral",
+   "text_word_count": 22.64
+ },
+ {
+   "sentiment": "positive",
+   "text_word_count": 28.47
+ }
+]
