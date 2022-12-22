@@ -125,6 +125,7 @@ tweet_list_df.head(5)
 #Calculating Negative, Positive, Neutral and Compound values
 tweet_list_df[['polarity', 'subjectivity']] = tweet_list_df['cleaned'].apply(lambda Text: pd.Series(TextBlob(Text).sentiment))
 for index, row in tweet_list_df['cleaned'].iteritems():
+    # Should use on English only
     score = SentimentIntensityAnalyzer().polarity_scores(row)
     neg = score['neg']
     neu = score['neu']

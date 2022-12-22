@@ -1,6 +1,7 @@
 import os
 from pymongo import MongoClient
 from google.cloud import bigquery
+from datetime import datetime
 
 client = MongoClient('localhost', 27017)
 
@@ -9,6 +10,7 @@ bq_client = bigquery.Client()
 
 db = client.worldcup
 
+# tweets_db = db.sfah.find({"_id":{ "$gte": ObjectID}})
 tweets_db = db.sfah.find()
 
 bq_content = bq_client.get_table('tecky-capstone-project.worldcup.sf-arghrv')
@@ -77,6 +79,7 @@ try:
         bq_client.insert_rows_json(bq_content,[content])
 except ValueError as e:
     print(e)
-    print(tweet['_id'])
+    # Need to do good logging
+    print(datetime.now().isoformat()+" ", tweet['_id'])
 
 print("upload data to bq success - sf-arghrv")
